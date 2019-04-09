@@ -8,8 +8,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -23,26 +21,21 @@ public class Competicao implements Serializable {
 	private Integer id;
 	
 	@JsonIgnore
-	@ManyToMany
-	@JoinTable(name = "COMPETICAO_ATLETA",
-			joinColumns = @JoinColumn(name = "competicao_id"),
-			inverseJoinColumns = @JoinColumn(name = "atleta_id")
-	)
+	@ManyToMany(mappedBy = "competicoes")
 	private List<Atleta> atletas = new ArrayList<>();
 	
 	private String descricao;
 	
 	private String data;
 	
-	
-	
 	public Competicao() {
 	}
 	
-	public Competicao(Integer id, String descricao) {
+	public Competicao(Integer id, String descricao, String data) {
 		super();
 		this.id = id;
 		this.descricao = descricao;
+		this.data = data;
 	}
 
 	public Integer getId() {

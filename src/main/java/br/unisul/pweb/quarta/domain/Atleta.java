@@ -8,12 +8,13 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 
 @Entity
 public class Atleta implements Serializable {
 	private static final long serialVersionUID = 1L;
-	
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,9 +22,13 @@ public class Atleta implements Serializable {
 	
 	private String nome;
 	
-	private ArrayList<String> modalidades;
+	private ArrayList<String> modalidades = new ArrayList<String>();
 	
-	@ManyToMany(mappedBy="atletas")
+	@ManyToMany
+	@JoinTable(name="ATLETA_COMPETICAO", 
+		joinColumns = @JoinColumn(name = "atletas_id"),
+		inverseJoinColumns = @JoinColumn(name = "compeicoes_id")
+	)
 	private List<Competicao> competicoes = new ArrayList<>();
 	
 	public Atleta() {
